@@ -1,0 +1,27 @@
+[time]
+command=date +%T
+interval=persistent
+
+[date]
+command=date '+%b %d'
+interval=1
+
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+color=#689d6a
+interval=200
+
+[wifi]
+command=~/.config/i3blocks/wifi
+label=Wifi:
+interval=60
+
+[player]
+command=xprop -name "Spotify" _NET_WM_ICON_NAME |\cut -d "\"" -f 2|cut -b 11-
+label=Playing
+interval=1
+color=#2ebd59
+
+[click]
+full_text=Windows
+command=rofi -show window
