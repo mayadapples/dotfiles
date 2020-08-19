@@ -23,7 +23,9 @@
 (setq enable-local-variables nil)
 (setq initial-scratch-message "")
 (setq initial-major-mode 'text-mode)
-(setq default-directory "c:/Sources")
+
+(when win32 (setq default-directory "c:/Sources"))
+(when linux (setq default-directory "~/Sources"))
 
 (setq-default c-basic-offset 4)
 
