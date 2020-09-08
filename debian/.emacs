@@ -6,8 +6,8 @@
 
 (package-initialize)
 
-(setq win32 t)
-(setq linux nil)
+(setq win32 nil)
+(setq linux t)
 (when win32
 	(setq ring-bell-function 'ignore))
 (when linux
@@ -25,7 +25,7 @@
 (setq initial-major-mode 'text-mode)
 
 (when win32 (setq default-directory "c:/Sources"))
-(when linux (setq default-directory "~/Sources"))
+(when linux (setq default-directory "~/Sources/"))
 
 (setq-default c-basic-offset 4)
 
@@ -51,8 +51,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(auto-save-default nil)
  '(column-number-mode t)
  '(completion-auto-help nil)
@@ -73,10 +71,11 @@
  '(package-archives
    (quote
 	(("gnu" . "https://elpa.gnu.org/packages/")
-	 ("melpa" . "https://stable.melpa.org/packages/"))))
+	 ("melpa" . "https://stable.melpa.org/packages/")
+	 ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-	(highlight-escape-sequences charmap highlight-numbers which-key swiper-helm smooth-scrolling rust-mode rainbow-delimiters python-mode pfuture markdown-mode lua-mode julia-mode js3-mode hydra ht helm-ag helm-ack flx elm-mode d-mode csv-mode csharp-mode counsel bind-key ahk-mode ace-window)))
+	(spaceline markdown-mode fish-completion elm-mode lua-mode julia-mode python-mode rust-mode highlight-numbers rainbow-delimiters ivy-hydra counsel)))
  '(rainbow-delimiters-max-face-count 10)
  '(scroll-bar-mode nil)
  '(size-indication-mode nil)
@@ -87,7 +86,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#282828" :foreground "#ebdbb2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width condensed :foundry "outline" :family "Consolas"))))
+ '(default ((t (:inherit nil :stipple nil :background "#282828" :foreground "#ebdbb2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "MS  " :family "Consolas"))))
  '(error ((t (:foreground "#fb4934" :weight semi-bold))))
  '(escape-glyph ((t (:foreground "#fb4934"))))
  '(fringe ((t nil)))
@@ -96,6 +95,7 @@
  '(mode-line ((t (:background "#ebdbb2" :foreground "black" :box nil))))
  '(mode-line-highlight ((t (:box (:line-width 2 :color "grey" :style released-button)))))
  '(mode-line-inactive ((t (:inherit mode-line :background "dark slate gray" :foreground "#f5f5f5" :box (:line-width -1 :color "grey40") :weight light))))
+ '(powerline-active1 ((t (:inherit mode-line :background "dim gray"))))
  '(region ((t (:background "blue"))))
  '(vertical-border ((((type w32 tty)) (:inherit mode-line-inactive))))
  '(warning ((t (:foreground "DarkOrange" :weight semi-bold)))))
@@ -150,7 +150,7 @@
 
 (defun replace-string-in-place (FromString ToString)
   "Replace a string without moving point."
-  (interactive "sReplace: \nsReplace: %s  With: ")
+  (interactive "Replace: \nsReplace: %s  With: ")
   (save-excursion
     (replace-string FromString ToString)
   ))
@@ -265,7 +265,7 @@
 (set-face-attribute 'font-lock-fix-hack-face nil :slant 'italic :weight 'bold :foreground "#fb4934" :background "#282828")
 (set-face-attribute 'font-lock-fix-temp-face nil :slant 'italic :weight 'bold :inverse-video t)
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized) '(font . "Consolas 14"))
 (set-foreground-color "#ebdbb2")                                                                ;; Foreground
 (set-background-color "#282828")                                                                ;; Background
 (set-cursor-color "#ebdbb2")                                                                    ;; Cursor
