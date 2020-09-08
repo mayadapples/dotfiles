@@ -1,0 +1,19 @@
+command=~/.config/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=pango
+
+[time]
+command=date +"%d %b %T"
+interval=repeat
+color=#e6f2e9
+
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=200
+color=#e6f2e9
+
+[memory]
+command=free -h | awk '/Mem:/ { printf("%5s/%s\n", $3, $2) }'
+interval=15
+separator=true
+color=#e6f2e9
