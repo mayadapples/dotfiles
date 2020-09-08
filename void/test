@@ -1,0 +1,10 @@
+#include <iostream>
+
+// This is a comment.
+
+int main() {
+
+	here_is_a_function();
+	
+	return 0;
+}
