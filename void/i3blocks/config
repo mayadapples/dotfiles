@@ -5,15 +5,51 @@ markup=pango
 [time]
 command=date +"%d %b %T"
 interval=repeat
-color=#e6f2e9
+color=#ea6c73
+separator=false
 
 [weather]
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
 interval=200
+color=#f9af4f
+
+[volume]
+label=♪ 
+command=~/.config/i3blocks/volume/volume
+interval=once
+signal=1
+color=#91b362
+#separator=false
+
+[mediaplayer]
+command=~/.config/i3blocks/mediaplayer/mediaplayer
+instance=spotify
+interval=5
+signal=10
+
+[backlight]
+command=~/.config/i3blocks/backlight/backlight
+label=☀
+interval=20
+STEP_SIZE=5
+USE_SUDO=0
+MIN_WIDTH=L100
+color=#90e1c6
+
+[ssid]
+command=~/.config/i3blocks/ssid/ssid
+INTERFACE=wlp2s0
+interval=120
+separator=false
 color=#e6f2e9
+
+[wifi]
+command=~/.config/i3blocks/wifi/wifi
+INTERFACE=wlp2s0
+interval=120
 
 [memory]
 command=free -h | awk '/Mem:/ { printf("%5s/%s\n", $3, $2) }'
 interval=15
-separator=true
-color=#e6f2e9
+separator=false
+color=#fae994

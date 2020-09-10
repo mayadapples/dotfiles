@@ -8,7 +8,8 @@ set $mod Mod4
 # is used in the bar {} block below.
 #font pango:Hack Bold 10
 # font pango:Consolas Bold Italic 10
-font pango:mono Bold Italic 8
+# font pango:mono Bold Italic 8
+font pango:Hack Bold 9
 
 # Set gaps:
 for_window [class="^.*"] border pixel 2
@@ -153,35 +154,42 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec --no-startup-id feh --bg-scale ~/Pictures/vj73avvswvg11.png
+exec --no-startup-id feh --bg-scale ~/Pictures/peter-feghali-fibrknjbpUo-unsplash.jpg
 
-set $bg #2429e
-set $red #aa3232
-set $green #60833f
-set $yellow #d0992a
-set $blue #256eaa
-set $purple #9442b0
-set $aqua #599a92
-set $grey #c5c8c6
-set $dgrey #222529
-set $lbgrey #c5c8c6
+set $fg #cedece
+set $bg #202420
+set $black #01060e
+set $red #ea7c73
+set $green #91b362
+set $yellow #f9af4f
+set $blue #53bdfa
+set $magenta #fae994
+set $cyan #90e1c6
+set $white #c7c7c7
 
-client.focused $lbgrey $lbgrey $yellow $purple $dgrey
-client.focused_inactive $dgrey $dgrey $yellow $purple $dgrey
-client.unfocused $dgrey $dgrey $yellow $purple $dgrey
-client.urgent $red $red $white $red $red
+# The default colors are fine.
+# client.focused $bg $green $green $magenta $bg
+# client.focused_inactive $bg $bg $yellow $green $bg
+# client.unfocused $bg $bg $yellow $green $bg
+# client.urgent $red $red $white $red $red
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
         status_command i3blocks
-	position top
+	i3bar_command i3bar --transparency
+	
+	separator_symbol "/"
+	tray_output primary
+	tray_padding 3
+	position bottom
+	
 	colors {
-		background #24292e
-		statusline #35d92e
-		focused_workspace #6cbe68 #6cbe68 #222529
-		inactive_workspace #222529 #222529 #6cbe68
-		active_workspace #222529 #222529 #60833f
-		urgent_workspace #aa3232 #aa3232 #c9dfd0
+		background $bg
+		statusline $fg
+		focused_workspace $green $green $bg
+		inactive_workspace $bg $bg $green
+		active_workspace $bg $bg $yellow
+		urgent_workspace $red $red $bg
 	}
 }
