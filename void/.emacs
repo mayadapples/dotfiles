@@ -25,11 +25,7 @@
 (setq initial-major-mode 'text-mode)
 
 (when win32 (setq default-directory "c:/Sources"))
-<<<<<<< HEAD
 (when linux (setq default-directory "~/Sources/"))
-=======
-(when linux (setq default-directory "~/Sources"))
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
 
 (setq-default c-basic-offset 4)
 
@@ -55,11 +51,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-<<<<<<< HEAD
-=======
- '(ansi-color-names-vector
-   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
  '(auto-save-default nil)
  '(column-number-mode t)
  '(completion-auto-help nil)
@@ -80,18 +71,11 @@
  '(package-archives
    (quote
 	(("gnu" . "https://elpa.gnu.org/packages/")
-<<<<<<< HEAD
 	 ("melpa" . "https://stable.melpa.org/packages/")
 	 ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
 	(spaceline markdown-mode fish-completion elm-mode lua-mode julia-mode python-mode rust-mode highlight-numbers rainbow-delimiters ivy-hydra counsel)))
-=======
-	 ("melpa" . "https://stable.melpa.org/packages/"))))
- '(package-selected-packages
-   (quote
-	(highlight-escape-sequences charmap highlight-numbers which-key swiper-helm smooth-scrolling rust-mode rainbow-delimiters python-mode pfuture markdown-mode lua-mode julia-mode js3-mode hydra ht helm-ag helm-ack flx elm-mode d-mode csv-mode csharp-mode counsel bind-key ahk-mode ace-window)))
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
  '(rainbow-delimiters-max-face-count 10)
  '(scroll-bar-mode nil)
  '(size-indication-mode nil)
@@ -102,11 +86,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-<<<<<<< HEAD
  '(default ((t (:inherit nil :stipple nil :background "#282828" :foreground "#ebdbb2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "MS  " :family "Consolas"))))
-=======
- '(default ((t (:inherit nil :stipple nil :background "#282828" :foreground "#ebdbb2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width condensed :foundry "outline" :family "Consolas"))))
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
  '(error ((t (:foreground "#fb4934" :weight semi-bold))))
  '(escape-glyph ((t (:foreground "#fb4934"))))
  '(fringe ((t nil)))
@@ -115,10 +95,7 @@
  '(mode-line ((t (:background "#ebdbb2" :foreground "black" :box nil))))
  '(mode-line-highlight ((t (:box (:line-width 2 :color "grey" :style released-button)))))
  '(mode-line-inactive ((t (:inherit mode-line :background "dark slate gray" :foreground "#f5f5f5" :box (:line-width -1 :color "grey40") :weight light))))
-<<<<<<< HEAD
  '(powerline-active1 ((t (:inherit mode-line :background "dim gray"))))
-=======
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
  '(region ((t (:background "blue"))))
  '(vertical-border ((((type w32 tty)) (:inherit mode-line-inactive))))
  '(warning ((t (:foreground "DarkOrange" :weight semi-bold)))))
@@ -173,11 +150,7 @@
 
 (defun replace-string-in-place (FromString ToString)
   "Replace a string without moving point."
-<<<<<<< HEAD
   (interactive "Replace: \nsReplace: %s  With: ")
-=======
-  (interactive "sReplace: \nsReplace: %s  With: ")
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
   (save-excursion
     (replace-string FromString ToString)
   ))
@@ -271,17 +244,6 @@
 ;; This will retain the way it is defined in emacs.
 	
 ;; Set all the face attributes.	
-<<<<<<< HEAD
-(set-face-attribute 'font-lock-builtin-face nil :foreground "#fae994")                          ;; Builtin
-(set-face-attribute 'font-lock-comment-face nil :foreground "#928374" :slant 'italic)           ;; Comment
-(set-face-attribute 'font-lock-constant-face nil :foreground "#cedece")                         ;; Constant
-(set-face-attribute 'font-lock-doc-face nil :foreground "#f9af4f" :slant 'italic :weight 'bold) ;; Doc
-(set-face-attribute 'font-lock-function-name-face nil :foreground "#cedece")                    ;; Function Name
-(set-face-attribute 'font-lock-keyword-face nil :foreground "#689d6a")                          ;; Keyword
-(set-face-attribute 'font-lock-string-face nil :foreground "#90e1c6")                           ;; String
-(set-face-attribute 'font-lock-type-face nil :foreground "#91b362")                             ;; Type
-(set-face-attribute 'font-lock-variable-name-face nil :foreground "#cedece")                    ;; Variable Name
-=======
 (set-face-attribute 'font-lock-builtin-face nil :foreground "#689d6a")                          ;; Builtin
 (set-face-attribute 'font-lock-comment-face nil :foreground "#928374" :slant 'italic)           ;; Comment
 (set-face-attribute 'font-lock-constant-face nil :foreground "#ebdbb2")                         ;; Constant
@@ -291,7 +253,6 @@
 (set-face-attribute 'font-lock-string-face nil :foreground "#83a598")                           ;; String
 (set-face-attribute 'font-lock-type-face nil :foreground "#8ec07c")                             ;; Type
 (set-face-attribute 'font-lock-variable-name-face nil :foreground "#ebdbb2")                    ;; Variable Name
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
 (add-hook 'foo-mode-hook 'highlight-numbers-mode)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 
@@ -304,14 +265,7 @@
 (set-face-attribute 'font-lock-fix-hack-face nil :slant 'italic :weight 'bold :foreground "#fb4934" :background "#282828")
 (set-face-attribute 'font-lock-fix-temp-face nil :slant 'italic :weight 'bold :inverse-video t)
 
-<<<<<<< HEAD
 (add-to-list 'default-frame-alist '(fullscreen . maximized) '(font . "Consolas 14"))
-(set-foreground-color "#cedece")                                                                ;; Foreground
-(set-background-color "#202420")                                                                ;; Background
-(set-cursor-color "#cedece")                                                                    ;; Cursor
-=======
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (set-foreground-color "#ebdbb2")                                                                ;; Foreground
 (set-background-color "#282828")                                                                ;; Background
 (set-cursor-color "#ebdbb2")                                                                    ;; Cursor
->>>>>>> 6e34a810c27ea4858ac6f8035d6689008e03e0ec
