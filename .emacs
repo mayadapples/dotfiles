@@ -1,16 +1,19 @@
 ;;; --------------------------------------------------------
 ;;; Theo's Dotfile
-;;; Written by Theodore Lovinski
-;;; It's probably not written very well but oh well.
+;;; It's probably not written very well
+;;; but oh well it works at the very least.
 ;;; --------------------------------------------------------
 
 (package-initialize)
 
 (setq win32 nil)
 (setq linux t)
+(setq laptop nil)
+
 (when win32
 	(setq ring-bell-function 'ignore))
-(when linux
+
+(when laptop
   ;; Use the mousepad to scroll left or right.
   (global-set-key (kbd "<mouse-6>") (lambda ()
 									  (interactive)
@@ -19,15 +22,15 @@
 									  (interactive)
 									  (if truncate-lines (scroll-left 1)))))
 
+(when win32 (setq default-directory "c:/Sources"))
+(when linux (setq default-directory "~/Sources/"))
+
 (setq scroll-step 3)
 (setq enable-local-variables nil)
 (setq initial-scratch-message "")
 (setq initial-major-mode 'text-mode)
 
-(when win32 (setq default-directory "c:/Sources"))
-(when linux (setq default-directory "~/Sources/"))
-
-(setq-default c-basic-offset 4)
+;(setq-default c-basic-offset 4)
 
 ;; Highlight TODOs, NOTEs, and HACKs
 ;; fix-modes contains the editing modes that we actually want to hightlight
@@ -43,7 +46,11 @@
 	'(("\\<\\(TODO\\)" 1 'font-lock-fix-todo-face t)
 	  ("\\<\\(NOTE\\)" 1 'font-lock-fix-note-face t)
 	  ("\\<\\(HACK\\)" 1 'font-lock-fix-note-face t)
-	  ("\\<\\(TEMP\\)" 1 'font-lock-fix-temp-face t))))
+	  ("\\<\\(TEMP\\)" 1 'font-lock-fix-temp-face t)
+	  ("#\\(TODO\\)" 1 'font-lock-fix-todo-face t)
+	  ("#\\(NOTE\\)" 1 'font-lock-fix-note-face t)
+	  ("#\\(HACK\\)" 1 'font-lock-fix-note-face t)
+	  ("#\\(TEMP\\)" 1 'font-lock-fix-temp-face t))))
 	fix-modes)
 	
 (custom-set-variables
@@ -76,7 +83,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-	(yaml-mode kotlin-mode julia-mode python-mode markdown-mode lua-mode ivy-hydra highlight-numbers swiper-helm swiper rust-mode ivy notmuch)))
+	(json-mode yaml-mode kotlin-mode julia-mode python-mode markdown-mode lua-mode ivy-hydra highlight-numbers swiper-helm swiper rust-mode ivy notmuch)))
  '(rainbow-delimiters-max-face-count 10)
  '(scroll-bar-mode nil)
  '(size-indication-mode nil)
@@ -126,6 +133,7 @@
        '(("\\.cpp$" . c++-mode)
 		 ("\\.hpp$" .c++-mode)
          ("\\.h$" . c++-mode)
+		 ("\\.hh" . c++-mode)
          ("\\.c$" . c++-mode)
          ("\\.cc$" . c++-mode)
 		 ("\\.rs$" . rust-mode)
@@ -134,7 +142,7 @@
 		 ("\\.py$" . python-mode)
          ("\\.txt$" . indented-text-mode)
          ("\\.el$" . emacs-lisp-mode)
-         )
+		 ("\\.md$" . markdown-mode))
 	   auto-mode-alist))
  
 (defun split-4-ways ()
@@ -162,7 +170,6 @@
 (define-key global-map [?\M-.] 'previous-buffer)
 (define-key global-map [C-x C-b] 'list-buffers)
 (define-key global-map "\eb" 'kill-current-buffer)
-(define-key global-map "\en" 'kill-current-buffer-and-window)
 (define-key global-map "\em" 'delete-other-windows)
 
 (define-key global-map [?\C-,] 'other-window)
@@ -172,11 +179,13 @@
 ;; Cursor Movement
 (define-key global-map [C-right] 'forward-word)
 (define-key global-map [C-left] 'backward-word)
+
 (defun previous-blank-line ()
 	"Go to next whitespace."
 	(interactive)
 	(search-backward-regexp "^[ \t]*\n"))
 (define-key global-map [C-up] 'previous-blank-line)
+
 (defun next-blank-line ()
   "Goes to next whitespace"
   (interactive)
@@ -184,11 +193,11 @@
   (search-forward-regexp "^[ \t]*\n")
   (forward-line -1))
 (define-key global-map [C-down] 'next-blank-line)
+
 (define-key global-map [M-up] 'previous-blank-line)
 (define-key global-map [M-down] 'next-blank-line)
 (define-key global-map [M-right] 'forward-word)
 (define-key global-map [M-left] 'backward-word)
-;; TODO: Replace M-> and M-<
 
 ;; Copy, Undo, and such.
 (define-key global-map [?\C--] 'undo)
@@ -259,9 +268,9 @@
 (set-face-attribute 'font-lock-fix-hack-face nil :slant 'italic :weight 'bold :foreground "#fb4934" :background "#282828")
 (set-face-attribute 'font-lock-fix-temp-face nil :slant 'italic :weight 'bold :inverse-video t)
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-(set-frame-font "Fira Mono 12" nil t)
-(cua-mode)
+(set-frame-font "Fira Mono 12" nil t)                                                           ;; Set Font
 (set-foreground-color "#cedece")                                                                ;; Foreground
 (set-background-color "#202420")                                                                ;; Background
 (set-cursor-color "#cedece")                                                                    ;; Cursor
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(cua-mode)
