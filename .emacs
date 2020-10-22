@@ -11,7 +11,10 @@
 (setq laptop nil)
 
 (when win32
-	(setq ring-bell-function 'ignore))
+  (setq ring-bell-function 'ignore)
+  (setq default-directory "c:/Sources"))
+(when linux (setq default-directory "~/Sources/"))
+
 
 (when laptop
   ;; Use the mousepad to scroll left or right.
@@ -22,20 +25,10 @@
 									  (interactive)
 									  (if truncate-lines (scroll-left 1)))))
 
-(when win32 (setq default-directory "c:/Sources"))
-(when linux (setq default-directory "~/Sources/"))
-
-(setq scroll-step 3)
-(setq enable-local-variables nil)
-(setq initial-scratch-message "")
-(setq initial-major-mode 'text-mode)
-
-;(setq-default c-basic-offset 4)
-
 ;; Highlight TODOs, NOTEs, and HACKs
 ;; fix-modes contains the editing modes that we actually want to hightlight
 ;; these things.
-(setq fix-modes '(c++-mode c-mode rust-mode elisp-mode julia-mode python-mode))
+(setq fix-modes '(c++-mode ruby-mode c-mode rust-mode lisp-mode julia-mode python-mode))
 (make-face 'font-lock-fix-todo-face)
 (make-face 'font-lock-fix-note-face)
 (make-face 'font-lock-fix-hack-face)
@@ -59,6 +52,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
+ '(c-basic-offset 4)
  '(column-number-mode t)
  '(completion-auto-help nil)
  '(confirm-kill-emacs nil)
@@ -67,8 +61,11 @@
  '(display-time-24hr-format t)
  '(display-time-format nil)
  '(display-time-mode t)
+ '(enable-local-variables nil)
  '(fringe-mode 0 nil (fringe))
  '(icomplete-mode t)
+ '(initial-major-mode (quote text-mode))
+ '(initial-scratch-message "")
  '(ivy-mode t)
  '(ivy-wrap t)
  '(make-backup-files nil)
@@ -80,12 +77,13 @@
 	(("gnu" . "https://elpa.gnu.org/packages/")
 	 ("melpa-stable" . "https://stable.melpa.org/packages/")
 	 ("melpa" . "https://melpa.org/packages/"))))
- '(package-enable-at-startup nil)
+ '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-	(json-mode yaml-mode kotlin-mode julia-mode python-mode markdown-mode lua-mode ivy-hydra highlight-numbers swiper-helm swiper rust-mode ivy notmuch)))
+	(restart-emacs json-mode yaml-mode kotlin-mode julia-mode python-mode markdown-mode lua-mode ivy-hydra highlight-numbers swiper-helm swiper rust-mode ivy notmuch)))
  '(rainbow-delimiters-max-face-count 10)
  '(scroll-bar-mode nil)
+ '(scroll-step 3)
  '(size-indication-mode nil)
  '(tab-width 4)
  '(tool-bar-mode nil))
@@ -97,8 +95,7 @@
  ;; If there is more than one, they won't work right.
  '(error ((t (:foreground "#fb4934" :weight semi-bold))))
  '(escape-glyph ((t (:foreground "#fb4934"))))
- '(fringe ((t nil)))
- '(highlight-numbers-number ((t (:inherit nil :foreground "#d3869b"))))
+ '(highlight-numbers-number ((t (:inherit nil :foreground "#ea6c73"))))
  '(ivy-current-match ((t (:background "deep sky blue" :foreground "black"))))
  '(mode-line ((t (:background "#cedece" :foreground "black" :box nil))))
  '(mode-line-highlight ((t (:box (:line-width 2 :color "grey" :style released-button)))))
@@ -108,23 +105,6 @@
 (defun insert-timeofday ()
    (interactive "*")
    (insert (format-time-string "%A, %D, %T")))
-
-(defun header-format ()
-	"Add header guard for .h/.hpp file."
-	(interactive)
-	(setq basefilename (file-name-sans-extension (file-name-no-directory buffer-file-name)))
-	(insert "#ifndef _")
-	(push-mark)
-	(insert basefilename)
-	(upcase-region (mark) (point))
-	(pop-mark)
-	(insert "\n#define _")
-	(push-mark)
-	(insert basefilename)
-	(upcase-region (mark) (point))
-	(pop-mark)
-	(insert "\n\n\n\n")
-	(insert "#endif"))
 
 ;; Assign modes to specific filetypes.
 ;; TODO: Add more programming languages.
@@ -166,6 +146,7 @@
 (define-key global-map [C-x C-i] 'insert-file)
 
 ;; Buffers
+(define-key global-map [C-return] 'save-buffer)
 (define-key global-map [?\M-,] 'next-buffer)
 (define-key global-map [?\M-.] 'previous-buffer)
 (define-key global-map [C-x C-b] 'list-buffers)
@@ -241,25 +222,25 @@
 
 (defun toggle-cursor-color ()
   "Change the cursor color when in overwrite mode."
-  (if (equal "#cedece" (face-background 'cursor))
-	  (set-cursor-color "#ea6c73")
-	(set-cursor-color "#cedece")))
+  (if (equal "#f72a48" (face-background 'cursor))
+	  (set-cursor-color "#ffe600")
+	(set-cursor-color "#f72a48")))
+
 (add-hook 'overwrite-mode-hook 'toggle-cursor-color)
+(add-hook 'foo-mode-hook 'highlight-numbers-mode)
+(add-hook 'prog-mode-hook 'highlight-numbers-mode)
 
 ;; Set all the face attributes.	
 (set-face-attribute 'font-lock-builtin-face nil :foreground "#91b362")                          ;; Builtin
 (set-face-attribute 'font-lock-comment-face nil :foreground "#928374" :slant 'italic)           ;; Comment
-(set-face-attribute 'font-lock-constant-face nil :foreground "#cedece")                         ;; Constant
+(set-face-attribute 'font-lock-constant-face nil :foreground "#cedece" :weight 'bold)           ;; Constant
 (set-face-attribute 'font-lock-doc-face nil :foreground "#ffe600" :slant 'italic :weight 'bold) ;; Doc
 (set-face-attribute 'font-lock-function-name-face nil :foreground "#cedece")                    ;; Function Name
 (set-face-attribute 'font-lock-keyword-face nil :foreground "#53bdfa")                          ;; Keyword
-(set-face-attribute 'font-lock-string-face nil :foreground "#83a598")                           ;; String
+(set-face-attribute 'font-lock-string-face nil :foreground "#ffb454")                           ;; String
 (set-face-attribute 'font-lock-type-face nil :foreground "#91b362")                             ;; Type
 (set-face-attribute 'font-lock-variable-name-face nil :foreground "#cedece")                    ;; Variable Name
-(add-hook 'foo-mode-hook 'highlight-numbers-mode)
-(add-hook 'prog-mode-hook 'highlight-numbers-mode)
-
-;(set-face-attribute 'font-lock-preprocessor-face nil :foreground "#689dba")   DISABLED         ;; C/C++ Preprocessor
+(set-face-attribute 'font-lock-preprocessor-face nil :foreground "#91b362")                     ;; C/C++ Preprocessor
 
 ;; Custom settings for fixme comment modifiers,
 ;; such as TODO, HACK, NOTE, and TEMP.
@@ -268,9 +249,9 @@
 (set-face-attribute 'font-lock-fix-hack-face nil :slant 'italic :weight 'bold :foreground "#fb4934" :background "#282828")
 (set-face-attribute 'font-lock-fix-temp-face nil :slant 'italic :weight 'bold :inverse-video t)
 
-(set-frame-font "Fira Mono 12" nil t)                                                           ;; Set Font
+(set-frame-font "Fira Code 12" nil t)                                                           ;; Set Font
 (set-foreground-color "#cedece")                                                                ;; Foreground
 (set-background-color "#202420")                                                                ;; Background
-(set-cursor-color "#cedece")                                                                    ;; Cursor
+(set-cursor-color "#f72a48")                                                                       ;; Cursor
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (cua-mode)
