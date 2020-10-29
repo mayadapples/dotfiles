@@ -1,28 +1,52 @@
 font:
     normal:
-        family: monospace
+        family: FiraMono
         style: Regular
     bold:
-        family: monospace
+        family: FiraMono
         style: Bold
     italic:
-        family: monospace
+        family: FiraMono
         style: Italic
     bold_italic:
-        family: monospace
+        family: FiraMono
         style: Bold Italic
     
-    size: 10
+    size: 11
 
+
+
+# TODO: Make these consistent with my emacs binds.
 key_bindings:
     - { key: Return, mods: Control | Shift, action: SpawnNewInstance }
+    - { key: Y, mods: Control, action: Paste }
+    - { key: G, mods: Control, action: Copy }
+
+mouse_bindings:
+    - { mouse: Middle, action: PasteSelection }
+
+scrolling:
+    history: 1000
+
+cursor:
+    style: Block
+    unfocused_hollow: true
+
+background_opacity: 0.9
+
+url:
+    launcher: firefox
+    args: []
+
+shell:
+    program: /bin/fish    
     
 colors:
     primary:
         background: '#202420'
         foreground: '#cedece'
     cursor:
-        cursor: '#cedece'
+        cursor: '#f72a48'
     normal:
         black: '#01060e'
         red: '#ea6c73'

@@ -1,53 +1,57 @@
-separator_block_width=15
+separator_block_width=20
 markup=pango
 
 [TIME_DATE]
-command=date +" %a %b %d  %H:%M:%S"
-interval=repeat
+label=                          
+command=date +" %a %d %b  %H:%M:%S"
+interval=1
+color=#ea6c73
 
 [weather]
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-color=#689d6a
+label=☔
 interval=200
+color=#f9af4f
 
-[memory]
-label=Memory:
-command=free -h | awk '/Mem:/ { printf("%5s/%s\n", $3, $2) }'
-interval=1
-separator=false
-
-[cpu_usage]
-label=CPU:
-command=~/.config/i3blocks/cpu_usage/cpu_usage
-interval=10
-min_width=CPU 100.00%
-
-[sound]
-command=~/.config/i3blocks/sound/sound_info.sh
-interval=once
-signal=10
-
-[volume-pulseaudio]
-command=~/.config/i3blocks/volume-pulseaudio/volume-pulseaudio
+[volume]
+command=~/.config/i3blocks/volume/volume
+label=♪
 interval=once
 signal=1
-
-[wifi]
-command=~/.config/i3blocks/wifi
-label=Wifi:
-interval=60
+color=#91b362
 
 [player]
 command=xprop -name "Spotify" _NET_WM_ICON_NAME |\cut -d "\"" -f 2|cut -b 11-
 label=Playing
-interval=1
+interval=once
 color=#2ebd59
 
-[click]
-full_text=Windows
-command=rofi -show window
-separator=false
+[bandwidth]
+command=~/.config/i3blocks/bandwidth/bandwidth
+interval=70
+color=#58c2ff
 
-[shutdown_menu]
-full_text=Quit
-command=~/.config/i3blocks/shutdown_menu/shutdown_menu
+[memory]
+label=Memory:
+command=free -h | awk '/Mem:/ { printf("%5s/%s\n", $3, $2) }'
+interval=300
+separator=true
+color=#ffee99
+
+[cpu_usage]
+label=CPU:
+command=~/.config/i3blocks/cpu_usage/cpu_usage
+interval=300
+min_width=CPU 100.00%
+separator=false
+color=#91b392
+
+[gpu-load]
+command=~/.config/i3blocks/gpu-load/gpu-load
+label=GPU:
+interval=300
+color=#91b392
+
+#[shutdown_menu]
+#full_text=Quit
+#command=~/.config/i3blocks/shutdown_menu/shutdown_menu
