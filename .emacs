@@ -80,7 +80,7 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-	(restart-emacs json-mode yaml-mode kotlin-mode julia-mode python-mode markdown-mode lua-mode ivy-hydra highlight-numbers swiper-helm swiper rust-mode ivy notmuch)))
+	(restart-emacs json-mode yaml-mode kotlin-mode julia-mode python-mode markdown-mode lua-mode ivy-hydra highlight-numbers rust-mode ivy notmuch)))
  '(rainbow-delimiters-max-face-count 10)
  '(scroll-bar-mode nil)
  '(scroll-step 3)
@@ -135,37 +135,27 @@
 	(windmove-left))
 
 ;;; Change keybindings.
+;;; These may be weird idk.
 ;; Quitting
 (define-key global-map [C-c] 'abort-isearch)
-(define-key global-map [C-x C-c] 'save-buffers-kill-emacs)
-
-;; Files
-(define-key global-map [C-x C-f] 'find-file)
-(define-key global-map [C-x C-s] 'safe-buffer)
-(define-key global-map [C-x C-w] 'write-file)
-(define-key global-map [C-x C-i] 'insert-file)
+(global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
 
 ;; Buffers
-(define-key global-map [C-return] 'save-buffer)
-(define-key global-map [?\M-,] 'next-buffer)
-(define-key global-map [?\M-.] 'previous-buffer)
+(global-set-key [M-return] 'save-buffer)
+(global-set-key (kbd "M-.") 'next-buffer)
+(global-set-key (kbd "C-.") 'previous-buffer)
 (define-key global-map [C-x C-b] 'list-buffers)
 (define-key global-map "\eb" 'kill-current-buffer)
 (define-key global-map "\em" 'delete-other-windows)
-
 (define-key global-map [?\C-,] 'other-window)
 (define-key global-map "\eo" 'split-window-horizontally)
 (define-key global-map "\el" 'split-window-vertically)
 
 ;; Cursor Movement
-(define-key global-map [C-right] 'forward-word)
-(define-key global-map [C-left] 'backward-word)
-
 (defun previous-blank-line ()
 	"Go to next whitespace."
 	(interactive)
 	(search-backward-regexp "^[ \t]*\n"))
-(define-key global-map [C-up] 'previous-blank-line)
 
 (defun next-blank-line ()
   "Goes to next whitespace"
@@ -173,8 +163,11 @@
   (forward-line)
   (search-forward-regexp "^[ \t]*\n")
   (forward-line -1))
-(define-key global-map [C-down] 'next-blank-line)
 
+(define-key global-map [C-up] 'previous-blank-line)
+(define-key global-map [C-down] 'next-blank-line)
+(define-key global-map [C-right] 'forward-word)
+(define-key global-map [C-left] 'backward-word)
 (define-key global-map [M-up] 'previous-blank-line)
 (define-key global-map [M-down] 'next-blank-line)
 (define-key global-map [M-right] 'forward-word)
@@ -182,14 +175,7 @@
 
 ;; Copy, Undo, and such.
 (define-key global-map [?\C--] 'undo)
-(define-key global-map [C-w] 'clipboard-copy)
-(define-key global-map [M-w] 'clipboard-cut)
-(define-key global-map [C-e] 'clipboard-yank)
-(define-key global-map "\ez" 'kill-region)
-(global-unset-key [C-x C-l])
-(define-key global-map [C-x C-l] 'goto-line)
-
-;; Toggle truncate lines.
+(global-set-key (kbd "C-x C-l") 'goto-line)
 (define-key global-map "\et" 'toggle-truncate-lines)
 
 ;; Delimiter Wrapping
@@ -218,7 +204,9 @@
         (insert "{")))))
 
 (define-key global-map (kbd "C-(") 'surround-brackets)
+(define-key global-map (kbd "C-)") 'surround-brackets)
 (define-key global-map (kbd "C-{") 'surround-brackets-curly)
+(define-key global-map (kbd "C-}") 'surround-brackets-curly)
 
 (defun toggle-cursor-color ()
   "Change the cursor color when in overwrite mode."
@@ -255,3 +243,4 @@
 (set-cursor-color "#f72a48")                                                                       ;; Cursor
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (cua-mode)
+(blink-cursor-mode)
