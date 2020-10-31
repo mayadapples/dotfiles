@@ -12,8 +12,11 @@
 
 (when win32
   (setq ring-bell-function 'ignore)
-  (setq default-directory "c:/Sources"))
-(when linux (setq default-directory "~/Sources/"))
+  (setq default-directory "c:/Sources")
+  (setq my-font "Consolas"))
+(when linux
+  (setq default-directory "~/Sources/")
+  (setq my-font "Fira Code 12"))
 
 
 (when laptop
@@ -28,6 +31,7 @@
 ;; Highlight TODOs, NOTEs, and HACKs
 ;; fix-modes contains the editing modes that we actually want to hightlight
 ;; these things.
+
 (setq fix-modes '(c++-mode ruby-mode c-mode rust-mode lisp-mode julia-mode python-mode))
 (make-face 'font-lock-fix-todo-face)
 (make-face 'font-lock-fix-note-face)
@@ -56,11 +60,12 @@
  '(column-number-mode t)
  '(completion-auto-help nil)
  '(confirm-kill-emacs nil)
+
  '(confirm-kill-processes nil)
  '(custom-enabled-themes nil)
  '(display-time-24hr-format t)
  '(display-time-format nil)
- '(display-time-mode t)
+ '(display-time-mode nil)
  '(enable-local-variables nil)
  '(fringe-mode 0 nil (fringe))
  '(icomplete-mode t)
@@ -136,20 +141,28 @@
 
 ;;; Change keybindings.
 ;;; These may be weird idk.
-;; Quitting
+(defun duplicate-line ()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank))
+
 (define-key global-map [C-c] 'abort-isearch)
 (global-set-key (kbd "C-x C-c") 'save-buffers-kill-emacs)
-
-;; Buffers
+(global-set-key (kbd "C-k") 'kill-whole-line)
+(global-set-key (kbd "M-k") 'duplicate-line)
 (global-set-key [M-return] 'save-buffer)
 (global-set-key (kbd "M-.") 'next-buffer)
 (global-set-key (kbd "C-.") 'previous-buffer)
-(define-key global-map [C-x C-b] 'list-buffers)
+(define-key global-map "\el" 'ivy-switch-buffer)
 (define-key global-map "\eb" 'kill-current-buffer)
 (define-key global-map "\em" 'delete-other-windows)
 (define-key global-map [?\C-,] 'other-window)
-(define-key global-map "\eo" 'split-window-horizontally)
-(define-key global-map "\el" 'split-window-vertically)
+(global-set-key "\eo" 'split-window-horizontally)
+(global-set-key "\ev" 'split-window-vertically)
 
 ;; Cursor Movement
 (defun previous-blank-line ()
@@ -172,13 +185,10 @@
 (define-key global-map [M-down] 'next-blank-line)
 (define-key global-map [M-right] 'forward-word)
 (define-key global-map [M-left] 'backward-word)
-
-;; Copy, Undo, and such.
 (define-key global-map [?\C--] 'undo)
 (global-set-key (kbd "C-x C-l") 'goto-line)
 (define-key global-map "\et" 'toggle-truncate-lines)
 
-;; Delimiter Wrapping
 (defun surround-brackets ()
   "Surround current region with brackets"
   (interactive)
@@ -190,7 +200,7 @@
         (insert ")")
         (goto-char beg)
         (insert "(")))))
-		
+
 (defun surround-brackets-curly ()
   "Surround current region with brackets"
   (interactive)
@@ -203,10 +213,47 @@
         (goto-char beg)
         (insert "{")))))
 
+(defun surround-single-quote ()
+  "Surround current region with quotes"
+  (interactive)
+  (when (use-region-p)
+    (save-excursion
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (goto-char end)
+        (insert "'")
+        (goto-char beg)
+        (insert "'")))))
+
+(defun surround-double-quote ()
+  "Surround current region with quotes"
+  (interactive)
+  (when (use-region-p)
+    (save-excursion
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        (goto-char end)
+        (insert "\"")
+        (goto-char beg)
+        (insert "\"")))))
+
 (define-key global-map (kbd "C-(") 'surround-brackets)
 (define-key global-map (kbd "C-)") 'surround-brackets)
 (define-key global-map (kbd "C-{") 'surround-brackets-curly)
 (define-key global-map (kbd "C-}") 'surround-brackets-curly)
+(define-key global-map (kbd "C-\"") 'surround-double-quote)
+(define-key global-map (kbd "C-\"") 'surround-double-quote)
+(define-key global-map (kbd "C-'") 'surround-single-quote)
+(define-key global-map (kbd "C-'") 'surround-single-quote)
+
+; I copied this from Casey Muratori's .emacs file.
+(defun casey-replace-string (FromString ToString)
+  "Replace String without moving the pointer."
+  (interactive "sReplace: \nsReplace: %s  With: ")
+  (save-excursion
+	(replace-string FromString ToString)))
+
+(define-key global-map (kbd "<f8>") 'casey-replace-string)
 
 (defun toggle-cursor-color ()
   "Change the cursor color when in overwrite mode."
@@ -237,7 +284,7 @@
 (set-face-attribute 'font-lock-fix-hack-face nil :slant 'italic :weight 'bold :foreground "#fb4934" :background "#282828")
 (set-face-attribute 'font-lock-fix-temp-face nil :slant 'italic :weight 'bold :inverse-video t)
 
-(set-frame-font "Fira Code 12" nil t)                                                           ;; Set Font
+(set-frame-font my-font nil t)                                                           ;; Set Font
 (set-foreground-color "#cedece")                                                                ;; Foreground
 (set-background-color "#202420")                                                                ;; Background
 (set-cursor-color "#f72a48")                                                                       ;; Cursor
