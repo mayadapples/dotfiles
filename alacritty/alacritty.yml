@@ -1,18 +1,18 @@
 font:
     normal:
-        family: FiraMono
+        family: FiraCode
         style: Regular
     bold:
-        family: FiraMono
+        family: FiraCode
         style: Bold
     italic:
-        family: FiraMono
+        family: FiraCode
         style: Italic
     bold_italic:
-        family: FiraMono
+        family: FiraCode
         style: Bold Italic
     
-    size: 11
+    size: 10
 
 
 
