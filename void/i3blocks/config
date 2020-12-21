@@ -10,6 +10,7 @@ color=#ea6c73
 
 [weather]
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+label=☂ 
 interval=once
 color=#f9af4f
 
@@ -36,8 +37,15 @@ USE_SUDO=0
 MIN_WIDTH=L100
 color=#90e1c6
 
+[xbps]
+command=xbps-install -Sun | wc -l
+label=↧ 
+interval=480
+color=#f9af4f
+
 [ssid]
 command=~/.config/i3blocks/ssid/ssid
+#label=
 INTERFACE=wlp2s0
 interval=once
 separator=false
