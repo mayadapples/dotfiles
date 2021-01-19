@@ -1,5 +1,3 @@
-# Theo's Zsh config file.
-
 # Prompt
 autoload -U colors && colors
 PS1="%B%{$fg[white]%}[%{$fg[yellow]%}%n%{$fg[white]%}@%{$fg[red]%}%M ${fg[green]%}%~%{$fg[white]%}]%{$reset_color%}$%b "
@@ -26,6 +24,9 @@ alias ls='ls --color=auto'
 alias la='ls -las --color=auto'
 
 alias sudo='sudo '
+
+alias sxiv='devour sxiv'
+alias mpv='devour mpv'
 
 alias ttymacs='emacs --no-window-system'
 
