@@ -1,5 +1,10 @@
-separator_block_width=20
+separator_block_width=30
 markup=pango
+
+#[xtitle]
+#command=echo $(xprop -id $(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{printf $NF}') | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
+#interval=persist
+#separator=false
 
 [TIME_DATE]
 label=                          

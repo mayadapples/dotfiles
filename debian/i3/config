@@ -1,24 +1,23 @@
-# This is my i3 config file.
+# i3 config file
+# I am not using dwm because compiling your program to config is extremely dumb.
 
 set $mod Mod4
-
 font pango:FiraMono Bold 10
-
 smart_borders on
 smart_gaps on
 hide_edge_borders smart_no_gaps
-
-# Set gaps:
-for_window [class="^.*"] border pixel 2
-gaps inner 2
-gaps outer 2
-
 floating_modifier $mod
+for_window [class="^.*"] border pixel 2
+set $gap_inner 8
+set $gap_outer 6
+gaps inner $gap_inner
+gaps outer $gap_outer
 
 # Applications
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+v exec brave-browser
 bindsym $mod+Shift+l exec speedcrunch
+bindsym $mod+Shift+e exec emacs
 
 # Media
 set $default_pulseaudio_sink 1
@@ -31,9 +30,9 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Screenshots
-bindsym --release Print exec scrot -s && mv *.png ~/Media
-bindsym --release Shift+Print exec scrot
-bindsym --release $mod+Print exec scrot && mv *.png ~/Media
+bindsym --release Print exec scrot -s
+bindsym --release Shift+Print exec scrot -s && devour sxiv ~/*.png
+bindsym --release Mod+Print exec scrot && mv ~/*.png ~/Media/
 
 # i3
 bindsym $mod+Shift+c reload
@@ -60,10 +59,55 @@ bindsym $mod+a focus parent
 bindsym $mod+c focus child
 
 bindsym $mod+Shift+q kill
-bindsym $mod+d exec dmenu_run -b -l 5 -fn FiraMono -nb "#202420" -nf "#cedece" -sb "#91b362" -sf "#202420"
+bindsym $mod+d exec dmenu_run -p "run" -l 4 -b -fn FiraMono -nb "#202420" -nf "#cedece" -sb "#91b362" -sf "#202420"
 
 # Wallpaper
-exec --no-startup-id feh --bg-fill ~/Media/Wallpaper/jeremy-bishop-2e3hgvDnCpM-unsplash.jpg
+exec --no-startup-id feh --bg-fill '/home/theodore/Media/Wallpaper/pexels-ian-turnell-709552.jpg'
+
+set $fg #cedece
+set $morefg #bfbfbf
+set $bg #202420
+set $black #01060e
+set $red #ea7c73
+set $morered #f72a48
+set $green #91b362
+set $yellow #f9af4f
+set $blue #53bdfa
+set $magenta #fae994
+set $cyan #90e1c6
+set $white #c7c7c7
+
+#                       border bg     text    indic    childborder
+client.focused          $fg    $green $bg     $green   $fg   
+client.focused_inactive $bg    $bg    $fg     $green   $bg
+client.unfocused        $fg    $green $bg     $green   $bg
+client.urgent           $red   $red   $fg     $red     $red
+
+bar {
+    status_command i3blocks
+    i3bar_command i3bar --transparency
+
+    height 25
+
+    #separator_symbol "•"
+    separator_symbol "/"
+    tray_output primary
+    tray_padding 5
+    position bottom
+	
+	colors {
+	       background $bg
+	       statusline $fg
+	       focused_workspace $green $green $bg
+	       inactive_workspace $bg $bg $green
+	       active_workspace $bg $bg $yellow
+	       urgent_workspace $red $red $bg
+	}
+}
+
+# ------------------------------------------------------------
+# ------------------------------------------------------------
+# ------------------------------------------------------------
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -88,44 +132,6 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
-
-set $fg #cedece
-set $morefg #bfbfbf
-set $bg #202420
-set $black #01060e
-set $red #ea7c73
-set $morered #f72a48
-set $green #91b362
-set $yellow #f9af4f
-set $blue #53bdfa
-set $magenta #fae994
-set $cyan #90e1c6
-set $white #c7c7c7
-
-#                       border bg     text    indic    childborder
-client.focused          $fg    $green $bg     $green   $fg   
-client.focused_inactive $bg    $bg    $fg     $green   $bg
-client.unfocused        $fg    $green $bg     $green   $bg
-client.urgent           $red   $red   $fg     $red     $red
-
-bar {
-    status_command i3blocks
-	i3bar_command i3bar --transparency
-	
-	separator_symbol "•"
-	tray_output primary
-	tray_padding 3
-	position top
-	
-	colors {
-		background $bg
-		statusline $fg
-		focused_workspace $green $green $bg
-		inactive_workspace $bg $bg $green
-		active_workspace $bg $bg $yellow
-		urgent_workspace $red $red $bg
-	}
-}
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -158,8 +164,8 @@ mode "$mode_gaps" {
         bindsym r      mode "$mode_gaps_right"
         bindsym b      mode "$mode_gaps_bottom"
         bindsym l      mode "$mode_gaps_left"
-		bindsym f	   gaps outer all set 0; gaps inner all set 0
-		bindsym n	   gaps outer all set 4; gaps inner all set 4
+	bindsym f      gaps outer all set 0; gaps inner all set 0
+	bindsym n      gaps outer all set $gap_outer; gaps inner all set $gap_inner
 
         bindsym Return mode "$mode_gaps"
         bindsym Escape mode "default"
